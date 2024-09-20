@@ -1,9 +1,10 @@
 import board
 import busio
-import time
+import time 
 import digitalio
 from adafruit_bus_device.i2c_device import I2CDevice
 from adafruit_mcp9600 import MCP9600
+import datetime
 
 #define mosfet pin
 mosfet_pin = digitalio.DigitalInOut(board.D13)
@@ -17,16 +18,18 @@ i2c = busio.I2C(board.SCL, board.SDA, frequency=100000)
 cycle = 0
 file = open('encryptedFile.txt', 'w')
 
-while True:
-    while (cycle < 0):
 
+while True:
 
         try:
             #using device i2c register and "k" thermocouple
+            e = datetime.datetime.now()
             device = MCP9600(i2c)
             TEMP = ((device.temperature * (9/5))+32)
-            file.write(TEMP)
+            file.write("Current temperature:" + str(TEMP))
+            print("First cycle:")
             print("Temperature(F)", (TEMP))
+            cycle = cycle + 1
             time.sleep(1)
         except ValueError:
             print("MCP9600 sensor not detected")
@@ -42,71 +45,76 @@ while True:
                 time.sleep(1)
                 # re-read temperature
                 TEMP = ((device.temperature * (9/5))+32)
-                file.write(TEMP)
+                file.write("Current temperature:" + str(TEMP))
                 print("Temperature(F)", (TEMP))
+                cycle = cycle + 1
                 time.sleep(1)
+                
+                if(cycle>5):
+                    print("Cycle completed. Encryption running now...")
+                    userInput = input('Please input a sentence to encrypt: ')
+
+
+                    #char bank to obtain letters from
+                    charBank = " ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 1234567890 !@$$%^&*"
+
+                    #holding message
+                    encryptedMessage = ""
+
+                    lengthOfKey = len(userInput)
+
+                    #a for loop which takes the current position in the userInput and changes it to the encrypted message
+                    for i in userInput:
+                        position = charBank.find(i)
+                        newPos = position + 5
+                        encryptedMessage += charBank[newPos]
+
+                    time.sleep(1)
+
+                    print("Here is your encrypted code: " + encryptedMessage)
+
+
+                    time.sleep(1)
+
+                    #verification process
+                    attemptedMessage = ""
+                    attempt = input("What is the passcode? ")
+
+                    isMessageAccepted = False
+
+                    for i in attempt:
+                        position = charBank.find(i)
+                        newPos = position + 5
+                        attemptedMessage += charBank[newPos]
+
+                    while(isMessageAccepted == False):
+                        if(attemptedMessage == encryptedMessage):
+                            isMessageAccepted == True;
+                            print("Message accepted! File transferred!")
+                            time.sleep(2)
+                            print("Opening file...")
+                            time.sleep(2)
+                            file = open('encryptedFile.txt', 'r')
+                            print(file.read())
+                          
+
+                        else:
+                            print("Message not accepted.")
+                          
+                            
+               
+
 
             # if temperature is 80 or higher, turn mosfet off
             mosfet_pin.value = False
             time.sleep(0.1)  # brief delay to settle
             print("Mosfet OFF")
-            file.write(TEMP)
+            file.write(str(TEMP))
             # wait for 1 sec
             time.sleep(1)
         except Exception as e:
 
             print("Error:", e)
 
-        cycle = cycle + 1
-
-userInput = input('Please input a sentence to encrypt: ')
 
 
-#char bank to obtain letters from
-charBank = " ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 1234567890 !@$$%^&*"
-
-#holding message
-encryptedMessage = ""
-
-lengthOfKey = len(userInput)
-
-#a for loop which takes the current position in the userInput and changes it to the encrypted message
-for i in userInput:
-    position = charBank.find(i)
-    newPos = position + 5
-    encryptedMessage += charBank[newPos]
-
-time.sleep(1)
-
-print("Here is your encrypted code: " + encryptedMessage)
-
-
-time.sleep(1)
-
-#verification process
-attemptedMessage = ""
-attempt = input("What is the passcode? ")
-
-isMessageAccepted = False
-
-for i in attempt:
-    position = charBank.find(i)
-    newPos = position + 5
-    attemptedMessage += charBank[newPos]
-
-while(isMessageAccepted == False):
-    if(attemptedMessage == encryptedMessage):
-        isMessageAccepted == True;
-        print("Message accepted! File transferred!")
-        time.sleep(2)
-        print("Opening file...")
-        time.sleep(2)
-        file = open('encryptedFile.txt', 'r')
-        print(file.read())
-
-    else:
-        print("Message not accepted.")
-
-
-
-    
