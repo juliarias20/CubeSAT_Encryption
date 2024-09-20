@@ -59,7 +59,7 @@ while True:
 
         cycle = cycle + 1
 
-    userInput = input('Please input a sentence to encrypt: ')
+userInput = input('Please input a sentence to encrypt: ')
 
 
 #char bank to obtain letters from
