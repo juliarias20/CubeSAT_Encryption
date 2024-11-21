@@ -1,0 +1,24 @@
+These are today's temperature data readings:  
+Temperature: 3.5
+Temperature: 7.0
+Temperature: 10.5
+Temperature: 14.0
+Temperature: 17.5
+Temperature: 21.0
+Temperature: 24.5
+Temperature: 28.0
+Temperature: 31.5
+Temperature: 35.0
+Temperature: 38.5
+Temperature: 42.0
+Temperature: 45.5
+Temperature: 49.0
+Temperature: 52.5
+Temperature: 56.0
+Temperature: 59.5
+Temperature: 63.0
+Temperature: 66.5
+Temperature: 70.0
+Temperature: 73.5
+Temperature: 77.0
+Temperature: 80.5
