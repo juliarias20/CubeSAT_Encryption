@@ -13,6 +13,7 @@ mosfet_pin= digitalio.DigitalInOut(board.D13)
 #output Mosfet
 mosfet_pin.direction=digitalio.Direction.OUTPUT
 
+tempFile = open("temperatureReadings.txt", "w")
 
 i2c= busio.I2C(board.SCL,board.SDA, frequency=100000)
 while True:
@@ -21,6 +22,8 @@ while True:
         device = MCP9600(i2c)
         TEMP=((device.temperature * (9/5))+32)
         print("Temperature(F)",(TEMP))
+        tempFile.write(TEMP + "\n")
+        
         time.sleep(1)
     except ValueError:
         print("MCP9600 sensor not detected")
