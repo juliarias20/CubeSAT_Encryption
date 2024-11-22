@@ -49,7 +49,7 @@ while True:
             e = datetime.datetime.now()
             device = MCP9600(i2c)
             TEMP = ((device.temperature * (9/5))+32)
-            file.write(formatted_datetime + "Current temperature:" + str(TEMP) + "\n")
+            file.write(formatted_datetime + "--- Current temperature:" + str(TEMP) + "\n")
             print("First cycle:")
             print("Temperature(F)", (TEMP))
                 
@@ -66,7 +66,7 @@ while True:
                 time.sleep(1)
                 # re-read temperature
                 TEMP = ((device.temperature * (9/5))+32)
-                file.write(formatted_datetime + "Current temperature:" + str(TEMP) + "\n")
+                file.write(formatted_datetime + "--- Current temperature:" + str(TEMP) + "\n")
                     
                 print("Temperature(F)", (TEMP))
                 cycle = cycle + 1
@@ -76,7 +76,7 @@ while True:
                 mosfet_pin.value = False
                 time.sleep(0.1)  # brief delay to settle
                 print("Mosfet OFF")
-                file.write(formatted_datetime + "Current temperature:" + str(TEMP) + "\n")
+                file.write(formatted_datetime + "--- Current temperature:" + str(TEMP) + "\n")
                     # wait for 1 sec
                 time.sleep(1)
 
