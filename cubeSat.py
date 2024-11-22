@@ -52,58 +52,58 @@ while True:
                 
                 if(cycle>5):
                     print("Cycle completed. Encryption running now...")
-                    userInput = input('Please input a sentence to encrypt: ')
+
+                        def caesarianCipher():
+                            caesarFile = open('passcodes.txt')
+
+                            for word in caesarFile:
+
+                                encryptedMessage = ""
+
+                                lengthOfKey = len(word)
+
+                                for i in word:
+                                    position = charBank.find(i)
+                                    newPos = position + 5
+                                    encryptedMessage += charBank[newPos]
+
+                                print("Original word: " + word)
+                                print("Here is your encrypted code: " + encryptedMessage + "\n")
+
+        #time.sleep(5)
+
+                        def vingenereCipher():
+                            file = open("passcodes.txt", "r")
+                            keywordFile = open("keywords.txt", "r")
+
+                    #only implementing the first word?
+                            for word in file:
+                                passcode = word
+                                for key in keywordFile:
+                                    def convertToCipher(password, key):
+                                        cipher = ""
+                                        for i in password:
+                                            x = ((password.find(i) + key.find(i)) % 26)
+
+                                            x += ord('A')
+                                            cipher += chr(x)
+                                        return cipher
+                            print("Original word: " + word)
+                            print("Here is your encrypted code: " + convertToCipher(passcode, key) + "\n")
 
 
-                    #char bank to obtain letters from
-                    charBank = " ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 1234567890 !@$$%^&*"
+                        #introduction Message
+                        print("The following passcodes are randomized through a file of keywords and will be used for testing purposes.\n")
 
-                    #holding message
-                    encryptedMessage = ""
+                        time.sleep(1)
 
-                    lengthOfKey = len(userInput)
+                        caesarianCipher()
 
-                    #a for loop which takes the current position in the userInput and changes it to the encrypted message
-                    for i in userInput:
-                        position = charBank.find(i)
-                        newPos = position + 5
-                        encryptedMessage += charBank[newPos]
+                        time.sleep(1)
 
-                    time.sleep(1)
+                        print("Beginning: vingenereCipher encryption")
 
-                    print("Here is your encrypted code: " + encryptedMessage)
-
-
-                    time.sleep(1)
-
-                    #verification process
-                    attemptedMessage = ""
-                    attempt = input("What is the passcode? ")
-
-                    isMessageAccepted = False
-
-                    for i in attempt:
-                        position = charBank.find(i)
-                        newPos = position + 5
-                        attemptedMessage += charBank[newPos]
-
-                    while(isMessageAccepted == False):
-                        if(attemptedMessage == encryptedMessage):
-                            isMessageAccepted == True;
-                            print("Message accepted! File transferred!")
-                            time.sleep(2)
-                            print("Opening file...")
-                            time.sleep(2)
-                            file = open('encryptedFile.txt', 'r')
-                            print(file.read())
-                          
-
-                        else:
-                            print("Message not accepted.")
-                          
-                            
-               
-
+                        vingenereCipher()
 
             # if temperature is 80 or higher, turn mosfet off
             mosfet_pin.value = False
