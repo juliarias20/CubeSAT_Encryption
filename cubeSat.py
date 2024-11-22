@@ -85,34 +85,6 @@ while True:
         except ValueError:
             print("MCP9600 sensor not detected")
             continue  # skip to the next iteration if sensor not detected
-        #time.sleep(5)
-
-                   """     def vingenereCipher():
-                            file = open("passcodes.txt", "r")
-                            keywordFile = open("keywords.txt", "r")
-
-                    #only implementing the first word?
-                            for word in file:
-                                passcode = word
-                                for key in keywordFile:
-                                    def convertToCipher(password, key):
-                                        cipher = ""
-                                        for i in password:
-                                            x = ((password.find(i) + key.find(i)) % 26)
-
-                                            x += ord('A')
-                                            cipher += chr(x)
-                                        return cipher
-                            print("Original word: " + word)
-                            print("Here is your encrypted code: " + convertToCipher(passcode, key) + "\n")"""
-
-
-                        #introduction Message
-
-                        """print("Beginning: vingenereCipher encryption")
-
-                        vingenereCipher()"""
-
 
 
 
