@@ -26,16 +26,14 @@ while True:
             e = datetime.datetime.now()
             device = MCP9600(i2c)
             TEMP = ((device.temperature * (9/5))+32)
-            file.write("Current temperature:" + str(TEMP))
+            file.write("\nCurrent temperature:" + str(TEMP))
             print("First cycle:")
             print("Temperature(F)", (TEMP))
+                
             cycle = cycle + 1
+                
             time.sleep(1)
-        except ValueError:
-            print("MCP9600 sensor not detected")
-            continue  # skip to the next iteration if sensor not detected
 
-        try:
             while TEMP < 80:
                 #turn mosfet on
                 mosfet_pin.value = True
@@ -46,33 +44,50 @@ while True:
                 # re-read temperature
                 TEMP = ((device.temperature * (9/5))+32)
                 file.write("Current temperature:" + str(TEMP))
+                    
                 print("Temperature(F)", (TEMP))
                 cycle = cycle + 1
                 time.sleep(1)
-                
-                if(cycle>5):
-                    print("Cycle completed. Encryption running now...")
+
+                 # if temperature is 80 or higher, turn mosfet off
+                mosfet_pin.value = False
+                time.sleep(0.1)  # brief delay to settle
+                print("Mosfet OFF")
+                file.write(str(TEMP))
+                    # wait for 1 sec
+                time.sleep(1)
+
+                if(cycle > 5):
+                        print("Cycle completed. Encryption running now...")
+                        print("The following passcodes are randomized through a file of keywords and will be used for testing purposes.\n")
+
+                        time.sleep(1)
+
+                        caesarianCipher()
 
                         def caesarianCipher():
                             caesarFile = open('passcodes.txt')
-
+        
                             for word in caesarFile:
-
+        
                                 encryptedMessage = ""
-
+        
                                 lengthOfKey = len(word)
-
+        
                                 for i in word:
                                     position = charBank.find(i)
                                     newPos = position + 5
                                     encryptedMessage += charBank[newPos]
-
+        
                                 print("Original word: " + word)
                                 print("Here is your encrypted code: " + encryptedMessage + "\n")
-
+                                time.sleep(5)
+        except ValueError:
+            print("MCP9600 sensor not detected")
+            continue  # skip to the next iteration if sensor not detected
         #time.sleep(5)
 
-                        def vingenereCipher():
+                   """     def vingenereCipher():
                             file = open("passcodes.txt", "r")
                             keywordFile = open("keywords.txt", "r")
 
@@ -89,32 +104,15 @@ while True:
                                             cipher += chr(x)
                                         return cipher
                             print("Original word: " + word)
-                            print("Here is your encrypted code: " + convertToCipher(passcode, key) + "\n")
+                            print("Here is your encrypted code: " + convertToCipher(passcode, key) + "\n")"""
 
 
                         #introduction Message
-                        print("The following passcodes are randomized through a file of keywords and will be used for testing purposes.\n")
 
-                        time.sleep(1)
+                        """print("Beginning: vingenereCipher encryption")
 
-                        caesarianCipher()
+                        vingenereCipher()"""
 
-                        time.sleep(1)
-
-                        print("Beginning: vingenereCipher encryption")
-
-                        vingenereCipher()
-
-            # if temperature is 80 or higher, turn mosfet off
-            mosfet_pin.value = False
-            time.sleep(0.1)  # brief delay to settle
-            print("Mosfet OFF")
-            file.write(str(TEMP))
-            # wait for 1 sec
-            time.sleep(1)
-        except Exception as e:
-
-            print("Error:", e)
 
 
 
