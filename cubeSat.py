@@ -6,6 +6,8 @@ from adafruit_bus_device.i2c_device import I2CDevice
 from adafruit_mcp9600 import MCP9600
 import datetime
 
+charBank = " ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 1234567890 !@$$%^&*"
+
 #define mosfet pin
 mosfet_pin = digitalio.DigitalInOut(board.D13)
 
