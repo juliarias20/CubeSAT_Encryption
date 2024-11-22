@@ -6,6 +6,9 @@ from adafruit_bus_device.i2c_device import I2CDevice
 from adafruit_mcp9600 import MCP9600
 import datetime
 
+now = datetime.datetime.now()
+formatted_datetime = now.strftime("%Y-%m-%d %H:%M:%S")
+
 charBank = " ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 1234567890 !@$$%^&*"
 
 #define mosfet pin
@@ -46,7 +49,7 @@ while True:
             e = datetime.datetime.now()
             device = MCP9600(i2c)
             TEMP = ((device.temperature * (9/5))+32)
-            file.write("\nCurrent temperature:" + str(TEMP) + "\n")
+            file.write(formatted_datetime + "Current temperature:" + str(TEMP) + "\n")
             print("First cycle:")
             print("Temperature(F)", (TEMP))
                 
@@ -63,7 +66,7 @@ while True:
                 time.sleep(1)
                 # re-read temperature
                 TEMP = ((device.temperature * (9/5))+32)
-                file.write("\nCurrent temperature:" + str(TEMP) + "\n")
+                file.write(formatted_datetime + "Current temperature:" + str(TEMP) + "\n")
                     
                 print("Temperature(F)", (TEMP))
                 cycle = cycle + 1
@@ -73,7 +76,7 @@ while True:
                 mosfet_pin.value = False
                 time.sleep(0.1)  # brief delay to settle
                 print("Mosfet OFF")
-                file.write("\nCurrent temperature:" + str(TEMP) + "\n")
+                file.write(formatted_datetime + "Current temperature:" + str(TEMP) + "\n")
                     # wait for 1 sec
                 time.sleep(1)
 
