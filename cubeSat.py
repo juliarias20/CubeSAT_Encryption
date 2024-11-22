@@ -18,23 +18,23 @@ i2c = busio.I2C(board.SCL, board.SDA, frequency=100000)
 cycle = 0
 file = open('encryptedFile.txt', 'w')
 
- def caesarianCipher():
-                            caesarFile = open('passcodes.txt')
-        
-                            for word in caesarFile:
-        
-                                encryptedMessage = ""
-        
-                                lengthOfKey = len(word)
-        
-                                for i in word:
-                                    position = charBank.find(i)
-                                    newPos = position + 5
-                                    encryptedMessage += charBank[newPos]
-        
-                                print("Original word: " + word)
-                                print("Here is your encrypted code: " + encryptedMessage + "\n")
-                                time.sleep(5)
+def caesarianCipher():
+      caesarFile = open('passcodes.txt')
+      
+      for word in caesarFile:
+      
+          encryptedMessage = ""
+      
+          lengthOfKey = len(word)
+      
+          for i in word:
+              position = charBank.find(i)
+              newPos = position + 5
+              encryptedMessage += charBank[newPos]
+      
+          print("Original word: " + word)
+          print("Here is your encrypted code: " + encryptedMessage + "\n")
+          time.sleep(5)
 
 
 while True:
