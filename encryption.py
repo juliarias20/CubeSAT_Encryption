@@ -83,25 +83,6 @@ caesarianCipher()
 
 time.sleep(1)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #verification process
 attemptedMessage = ""
 attempt = input("What is the passcode? ")
