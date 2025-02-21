@@ -43,7 +43,12 @@ def caesarianCipher():
             newPos = position + 5
             encryptedMessage += charBank[newPos]
 
+
+    #Terminal Testing
+    print("Original word: " + word)
     ser.write("Original word: " + word)
+
+    print("Here is your encrypted code: " + encryptedMessage + "\n")
     ser.write("Here is your encrypted code: " + encryptedMessage + "\n")
     time.sleep(1)
 
@@ -54,6 +59,7 @@ def mosfetON():
     time.sleep(0.1)
     
     #SEND TO UART ---
+    print("Mosfet ON")
     ser.write("Mosfet ON")
 
     time.sleep(1)
@@ -65,7 +71,10 @@ def mosfetON():
     # Increase the cycle number
     cycle = cycle + 1
 
-    #Send to UART_---
+    #Send to UART and terminal--
+    print("CYCLE NUMBER: " + cycle)
+    print("Temperature(F)", (TEMP))
+
     ser.write("CYCLE NUMBER: " + cycle)
     ser.write("Temperature(F)", (TEMP))
         
@@ -77,7 +86,8 @@ def mosfetOFF():
     mosfet_pin.value = False
     time.sleep(0.1)  # brief delay to settle
     
-    # Send to UART --- 
+    # Send to UART and terminal --- 
+    print("MOSFET OFF")
     ser.write("Mosfet OFF")
 
     # Write the current temperature to device file
@@ -87,6 +97,10 @@ def mosfetOFF():
     cycle = cycle + 1
 
     #Send to UART_---
+
+    print("CYCLE NUMBER: " + cycle)
+    print("Temperature(F)", (TEMP))
+
     ser.write("CYCLE NUMBER: " + cycle)
     ser.write("Temperature(F)", (TEMP))
 
@@ -108,6 +122,10 @@ while True:
             if(cycle > 5):
 
                 # Send to UART ----- 
+                print("Cycle completed. Encryption running now...")
+                print("The following passwords are randomized through a file of keywords and will be used for testing purposes.\n")
+
+
                 ser.write("Cycle completed. Encryption running now...")
                 ser.write("The following passwords are randomized through a file of keywords and will be used for testing purposes.\n")
 
@@ -131,12 +149,14 @@ while True:
 
                     return finalMessage;
 
-                    #Inform the user of their password for the file.
+                #Inform the user of their password for the file.
+                print("Your password is: " + word)
                 ser.write("Your password is: " + word)
 
                 #Establish the encryption code for the password and print the encrypted code to the user.
                 attempt = encrypt(word)
 
+                print("The encrypted code is: " + attempt)
                 ser.write("The encrypted code is: " + attempt)
 
                 attemptedMessage = ""
@@ -151,11 +171,20 @@ while True:
 
                 if(attemptedMessage == word):
                     isMessageAccepted == True;
+
+                    print("Message accepted! File transferred!")
                     ser.write("Message accepted! File transferred!")
+
                     time.sleep(2)
+
+                    print("Opening file...")
                     ser.write("Opening file...")
+
                     time.sleep(2)
+
                     file = open('encryptedFile.txt', 'r')
+
+                    print(file.read())
                     ser.write(file.read())
 
                 cycle = 0
@@ -166,6 +195,10 @@ while True:
             if(cycle > 5):
 
                 # Send to UART ----- 
+
+                print("Cycle completed. Encryption running now...")
+                print("The following passwords are randomized through a file of keywords and will be used for testing purposes.\n")
+
                 ser.write("Cycle completed. Encryption running now...")
                 ser.write("The following passwords are randomized through a file of keywords and will be used for testing purposes.\n")
 
@@ -189,12 +222,14 @@ while True:
 
                     return finalMessage;
 
-                    #Inform the user of their password for the file.
+                #Inform the user of their password for the file.
+                print("Your password is: " + word)
                 ser.write("Your password is: " + word)
 
                 #Establish the encryption code for the password and print the encrypted code to the user.
                 attempt = encrypt(word)
 
+                print("The encrypted code is: " + attempt)
                 ser.write("The encrypted code is: " + attempt)
 
                 attemptedMessage = ""
@@ -209,11 +244,20 @@ while True:
 
                 if(attemptedMessage == word):
                     isMessageAccepted == True;
+
+                    print("Message accepted! File transferred!")
                     ser.write("Message accepted! File transferred!")
+
                     time.sleep(2)
+
+                    print("Opening file...")
                     ser.write("Opening file...")
+
                     time.sleep(2)
+
                     file = open('encryptedFile.txt', 'r')
+
+                    print(file.read())
                     ser.write(file.read())
 
                 cycle = 0
